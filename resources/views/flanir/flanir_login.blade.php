@@ -20,6 +20,7 @@
 
     <div class="bg-white w-full max-w-[400px] p-10 rounded-[40px] shadow-2xl">
 
+        <!-- LOGO -->
         <div class="flex flex-col items-center mb-8">
 
             <img
@@ -34,12 +35,28 @@
 
         </div>
 
+        <!-- ERROR -->
         @if(session('error'))
             <div class="bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded-xl mb-4">
                 {{ session('error') }}
             </div>
         @endif
 
+        <!-- DEMO BOX -->
+        <div class="bg-blue-50 border border-blue-200 text-blue-700 p-4 rounded-2xl mb-6">
+
+            <p class="text-sm">Email: <b>sarah@flanir.com</b></p>
+            <p class="text-sm">Password: <b>password123</b></p>
+
+            <button type="button"
+                onclick="fillDemo()"
+                class="mt-3 bg-blue-600 text-white px-3 py-1 rounded-lg text-xs hover:bg-blue-700">
+                Isi Otomatis
+            </button>
+
+        </div>
+
+        <!-- FORM -->
         <form action="{{ route('flanir.login.process') }}" method="POST" class="space-y-5">
 
             @csrf
@@ -81,6 +98,7 @@
 
         </form>
 
+        <!-- BACK -->
         <div class="mt-6 text-center">
             <a href="{{ route('flanir.landing') }}"
                class="text-sm text-[#8A56F2] font-semibold hover:underline">
@@ -89,6 +107,14 @@
         </div>
 
     </div>
+
+    <!-- SCRIPT AUTO FILL -->
+    <script>
+        function fillDemo() {
+            document.querySelector('input[name="email"]').value = "sarah@flanir.com";
+            document.querySelector('input[name="password"]').value = "password123";
+        }
+    </script>
 
 </body>
 </html>

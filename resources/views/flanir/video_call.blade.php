@@ -15,19 +15,19 @@
         </div>
 
         <div class="relative w-full h-64 bg-slate-800 rounded-2xl overflow-hidden border border-slate-700">
-            <div id="placeholder-pasien" class="absolute inset-0 flex items-center justify-center bg-slate-800">
+            <div id="placeholder-pasien" class="absolute inset-0 flex items-center justify-center bg-slate-800 z-0">
                 <img src="https://ui-avatars.com/api/?name=Sarah+Putri&background=8A56F2&color=fff&size=100" 
                      class="rounded-full shadow-lg">
             </div>
 
-            <video id="video" autoplay playsinline muted class="w-full h-full object-cover"></video>
+            <video id="video" autoplay playsinline muted class="absolute inset-0 w-full h-full object-cover z-10"></video>
             
-            <div class="absolute bottom-20 left-4 text-white">
+            <div class="absolute bottom-20 left-4 text-white z-20">
                 <p class="font-bold">Sarah Putri</p>
                 <p class="text-xs opacity-80">Pasien</p>
             </div>
 
-            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full border border-white/10">
+            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full border border-white/10 z-20">
                 <button onclick="toggleMic()" class="bg-white/20 hover:bg-white/30 p-3 rounded-full text-white transition">🎤</button>
                 <a href="{{ route('flanir.konsultasi') }}" class="bg-red-500 hover:bg-red-600 p-4 rounded-full text-white transition">📞</a>
                 <button onclick="startCamera()" class="bg-white/20 hover:bg-white/30 p-3 rounded-full text-white transition">📷</button>
@@ -40,24 +40,31 @@
 let stream = null;
 
 async function startCamera() {
+    const video = document.getElementById('video');
+    const placeholder = document.getElementById('placeholder-pasien');
+    
     try {
+        // Meminta akses kamera dan mikrofon
         stream = await navigator.mediaDevices.getUserMedia({
-            video: true,
+            video: { width: { ideal: 1280 }, height: { ideal: 720 } },
             audio: true
         });
 
-        const video = document.getElementById('video');
-        const placeholder = document.getElementById('placeholder-pasien');
-        
-        // Sembunyikan placeholder setelah kamera aktif
-        placeholder.style.display = 'none';
-        
+        // Menghubungkan stream ke elemen video
         video.srcObject = stream;
-        await video.play();
-        console.log("Kamera aktif");
+        
+        // Memulai video setelah metadata siap
+        video.onloadedmetadata = () => {
+            video.play().catch(e => console.error("Autoplay diblokir:", e));
+        };
+
+        // Sembunyikan placeholder
+        if(placeholder) placeholder.style.display = 'none';
+        
+        console.log("Kamera aktif dan stream terhubung");
     } catch(error) {
-        console.error(error);
-        alert("Gagal membuka kamera: " + error.message);
+        console.error("Error Detail:", error);
+        alert("Gagal membuka kamera. Pastikan izin kamera sudah di-Allow di browser. Error: " + error.message);
     }
 }
 
