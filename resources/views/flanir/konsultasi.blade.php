@@ -14,7 +14,7 @@
         <div class="flex items-center gap-5">
 
             <img
-                src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400"
+                src="Cuplikan layar 2026-06-11 101201.png"
                 class="w-24 h-24 rounded-2xl object-cover"
             >
 

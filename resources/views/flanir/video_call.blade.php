@@ -9,10 +9,16 @@
     <div class="flex flex-col gap-4">
         
         <div class="relative w-full h-64 bg-slate-800 rounded-2xl overflow-hidden border border-slate-700">
-            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=500&auto=format" 
-                 class="w-full h-full object-cover" alt="Dr. Agus Septian">
-            <div class="absolute top-3 left-3 bg-black/50 text-white px-2 py-1 rounded-lg text-xs">Dr. Agus Septian</div>
-        </div>
+    <img
+        src="{{ asset('Cuplikan layar 2026-06-11 101201.png') }}"
+        alt="Dr. Agus Septian"
+        class="w-full h-full object-cover object-top"
+    >
+
+    <div class="absolute top-3 left-3 bg-black/50 text-white px-2 py-1 rounded-lg text-xs">
+        Dr. Agus Septian
+    </div>
+</div>
 
         <div class="relative w-full h-64 bg-slate-800 rounded-2xl overflow-hidden border border-slate-700">
             <div id="placeholder-pasien" class="absolute inset-0 flex items-center justify-center bg-slate-800 z-0">
